@@ -10,10 +10,7 @@ spring:
     config:
       server:
         native:
-          # Use classpath to allow Docker execution without volume mapping complexities.
-          # We'll map the config-repo to the classpath using Maven resources or externalize it directly.
-          # For file path, we can use ${user.dir}/config-repo which works in root directory both locally and handles absolute paths better.
-          search-locations: file:${user.dir}/config-repo/
+          search-locations: ${CONFIG_REPO_PATH:file:../config-repo/}
 
 eureka:
   instance:

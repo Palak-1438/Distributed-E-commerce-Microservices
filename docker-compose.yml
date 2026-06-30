@@ -76,7 +76,7 @@ services:
     environment:
       - EUREKA_INSTANCE_HOSTNAME=config-server
       - EUREKA_SERVER_HOST=discovery-server
-      - user.dir=/
+      - CONFIG_REPO_PATH=file:/config-repo/
     depends_on:
       - discovery-server
     volumes:
