@@ -1,4 +1,4 @@
-FROM amazoncorretto:21-alpine
+FROM openjdk:21-jdk-slim
 WORKDIR /app
 COPY config-server/target/config-server-*.jar app.jar
 EXPOSE 8888
