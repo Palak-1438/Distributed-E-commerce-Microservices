@@ -84,6 +84,22 @@ services:
     networks:
       - ecommerce-network
 
+  api-gateway:
+    build:
+      context: .
+      dockerfile: api-gateway/Dockerfile
+    container_name: ecommerce-api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - EUREKA_INSTANCE_HOSTNAME=api-gateway
+      - CONFIG_SERVER_HOST=config-server
+    depends_on:
+      - discovery-server
+      - config-server
+    networks:
+      - ecommerce-network
+
 volumes:
   mysql_data:
   redis_data:
