@@ -13,6 +13,16 @@ spring:
               - OPTIONS
             allowed-headers: "*"
       routes:
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: auth-service
+                fallbackUri: forward:/fallback/authServiceFallback
+
         - id: user-service
           uri: lb://user-service
           predicates:
@@ -53,6 +63,8 @@ resilience4j:
         waitDurationInOpenState: 5s
         failureRateThreshold: 50
     instances:
+      auth-service:
+        baseConfig: default
       user-service:
         baseConfig: default
       product-service:

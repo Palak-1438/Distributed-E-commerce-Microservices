@@ -29,6 +29,7 @@ public class JwtAuthenticationGatewayFilterFactory extends AbstractGatewayFilter
             final List<String> openApiEndpoints = List.of(
                     "/api/auth/register",
                     "/api/auth/login",
+                    "/api/auth/refresh",
                     "/eureka",
                     "/v3/api-docs"
             );
