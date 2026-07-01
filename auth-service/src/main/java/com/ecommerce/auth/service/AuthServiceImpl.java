@@ -43,19 +43,18 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponse login(AuthRequest request) {
-        Authentication authenticate = authenticationManager.authenticate(
+        // This will automatically throw an AuthenticationException (e.g. BadCredentialsException) if invalid
+        authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
 
-        if (authenticate.isAuthenticated()) {
-            UserCredential user = repository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new InvalidCredentialsException("Invalid login request"));
-            String accessToken = jwtService.generateToken(request.getEmail(), user.getRole());
-            String refreshToken = jwtService.generateRefreshToken(request.getEmail());
-            return new AuthResponse(accessToken, refreshToken);
-        } else {
-            throw new InvalidCredentialsException("Invalid login request");
-        }
+        UserCredential user = repository.findByEmail(request.getEmail())
+            .orElseThrow(() -> new InvalidCredentialsException("Invalid login request"));
+
+        String accessToken = jwtService.generateToken(request.getEmail(), user.getRole());
+        String refreshToken = jwtService.generateRefreshToken(request.getEmail());
+
+        return new AuthResponse(accessToken, refreshToken);
     }
 
     @Override
