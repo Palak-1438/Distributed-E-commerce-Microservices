@@ -100,6 +100,26 @@ services:
     networks:
       - ecommerce-network
 
+  auth-service:
+    build:
+      context: .
+      dockerfile: auth-service/Dockerfile
+    container_name: ecommerce-auth-service
+    ports:
+      - "8081:8081"
+    environment:
+      - EUREKA_INSTANCE_HOSTNAME=auth-service
+      - CONFIG_SERVER_HOST=config-server
+      - MYSQL_HOST=mysql
+      - KAFKA_BROKERS=kafka:9092
+      - REDIS_HOST=redis
+    depends_on:
+      - discovery-server
+      - config-server
+      - mysql
+    networks:
+      - ecommerce-network
+
 volumes:
   mysql_data:
   redis_data:
