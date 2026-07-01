@@ -14,7 +14,7 @@ import java.util.Map;
 @Service
 public class JwtService {
 
-    @Value("${ecommerce.jwt.secret:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}")
+    @Value("${ecommerce.jwt.secret}")
     private String secret;
 
     @Value("${ecommerce.jwt.expiration-ms:86400000}")
