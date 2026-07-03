@@ -1,0 +1,2 @@
+# Centralized configuration for user-service
+# Any specific overrides can go here. The global application.yml provides defaults.

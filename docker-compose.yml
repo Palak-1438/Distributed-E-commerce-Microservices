@@ -120,6 +120,24 @@ services:
     networks:
       - ecommerce-network
 
+  user-service:
+    build:
+      context: .
+      dockerfile: user-service/Dockerfile
+    container_name: ecommerce-user-service
+    ports:
+      - "8082:8082"
+    environment:
+      - EUREKA_INSTANCE_HOSTNAME=user-service
+      - CONFIG_SERVER_HOST=config-server
+      - MYSQL_HOST=mysql
+    depends_on:
+      - discovery-server
+      - config-server
+      - mysql
+    networks:
+      - ecommerce-network
+
 volumes:
   mysql_data:
   redis_data:
